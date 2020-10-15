@@ -23,7 +23,7 @@ class User(db.Model):
 
 
 class Post(db.Model):
-    __table__name = "post_table"
+    __tablename__ = "post_table"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(15), nullable=False)
     content = db.Column(db.Text, nullable=False)

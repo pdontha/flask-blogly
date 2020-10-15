@@ -133,18 +133,12 @@ def add_post(user_id):
 @app.route('/posts/<int:post_id>', methods=['GET'])
 def show_post(post_id):
     post = Post.query.get_or_404(post_id)
-    print("POSTTTT---->", Post.query.all())
     return render_template("post_detail.html", post=post)
 
 
 @app.route('/posts/<int:post_id>/edit', methods=['GET'])
 def edit_post(post_id):
-    post1 = Post.query.get_or_404(post_id)
-    post = {
-        "title": post1.title,
-        "content": post1.content,
-        "id": post1.id
-    }
+    post = Post.query.get_or_404(post_id)
     return render_template("post_edit.html", post=post)
 
 
@@ -162,10 +156,4 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     db.session.delete(post)
     db.session.commit()
-    return redirect("/users")
-
-
-@app.route('/posts')
-def posts():
-    posts = Post.query.all()
-    return render_template('posts.html', posts=posts)
+    return redirect(f"/users/{post.user_id}")
